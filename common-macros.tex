@@ -62,12 +62,14 @@
 			\coordinate (O) at ($(17,0)$);
 			\draw (\headheight,0)--(17cm-\headheight,0);
 		\end{tikzpicture}
-		%\textcolor{secondarycolor}{\noindent\hrule height 0.8pt}%
 	\endgroup
 }%
 \newcommand{\inputpgfb}[3][\@empty]{%
 	\begingroup
-		{\color{secondarycolor}\hrule height 0.8pt}%
+		\begin{tikzpicture}[remember picture, overlay,color=secondarycolor,]
+			\coordinate (O) at ($(17,0)$);
+			\draw (\headheight,0)--(17cm-\headheight,0);
+		\end{tikzpicture}%
 		\vspace{\onelineskip}%
 		\renewcommand{\rmfamily}{\liningmainfont}%
 		\input{#2}%
