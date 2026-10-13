@@ -14,7 +14,7 @@
 %----------------------------------------------------------------
 %   Front Matter
 %----------------------------------------------------------------
-\frontmatter				% roman pagination
+\frontmatter				    % roman pagination
 \tableofcontents* 			% starred makes content do not appear in the ToC
 \listoffigures
 \listoftables
@@ -30,15 +30,15 @@
 %----------------------------------------------------------------
 %   Main Matter
 %----------------------------------------------------------------
-%\TransitionPic
-\mainmatter 					% arabic pagination
+%\TransitionPic       % a cmd for a pagewide figure, see common-macros.tex for details     
+\mainmatter 				  % arabic pagination
 
 \input{dummytext}
 
 % APPENDIX
 \stopcontents[sections] 		% necessary so that Appendixes do not appear in the last partial ToC.
-\Annexes*						% not necessary:  an empty-lead page with "Annexes" written, *for no ToC entry
-\appendix						% make chapters alphabetically numbered
+\Annexes*						        % not necessary:  an empty-lead page with "Annexes" written, *for no ToC entry
+\appendix						        % make chapters alphabetically numbered
 \chapter{Numerical methods}
 \lipsum[1-3]
 
@@ -47,7 +47,7 @@
 %----------------------------------------------------------------
 %\TransitionPic
 \backmatter
-\printbibliography
+\printbibliography        
 
 \end{document}
 
