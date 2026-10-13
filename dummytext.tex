@@ -1,0 +1,62 @@
+\Chapter{About the template}
+\section{Foreword}
+This template must be compiled with the Lua\LaTeX\ engine. The latter supports modern also called smart fonts (which are used in this document) and some nice packages such as \texttt{piton.sty} for including your mind bending vibe coded python scripts. This engine has become over the years the recommended compiler for \TeX. Even though I inted to use this template for projects within Europe, it was made with the \textsf{memoir} class and not the more European-adapted \textsf{koma-script}. Nonetheless, \textsf{memoir} provides many functionalities of which many are used through this document.
+
+\section{The page setup}
+As you've now noticed, the body text is separated in two columns. This is done by specifying \texttt{twocolumn} as an option when calling \verb!\documentclass{memoir}!. This layout allows to maximize the usage of paper (both good for printing and scrolling purposes) while in the meantime allowing for high legibility. In my opinion, it is also the best looking layout when one has large figure panels that don't usually fit within the body text width of legible one column documents. However, two columns also means no margin annotations and figures.
+
+\section{The overall structure}
+Lines you are reading now are within the main matter \enquote{part} of this document. This is where document divisions are numbered, either by numbers for parts, chapters, sections, etc\dots\ or by letters for the appendix material. All the content before sat in the front matter and is usually unnumbered. The same goes for the backmatter in which indexes and the bibliography go.
+
+\section{A quick word on the babel package}
+As you may know, \TeX\ and subsequent \LaTeX\ were engineered by \textsc{us} citizens. Therefore, the engine typesets according to American typographic rules. For the rest of us, we can ensure proper formatting accordingly to our respective region by loading the \verb!babel.sty! package. To do so, make sure your region is given as an option in the document class, say \verb!\documentclass[french]{memoir}! and no package is loaded before \verb!\usepackage[provide=*]{babel}!. As packages are already set accordingly, you should only be changing the region option in the document class.
+
+\section{Looks and customisation}
+\subsection{Make it yours!}
+This version of the template was compiled with the colors of my engineering school. To do so, the color parameters \texttt{titlecolor} and \texttt{secondarycolor} were set by their \textsc{rgb} code, thanks to the \verb!xcolor.sty! package. Their encoding can be changed at will to match your needs, see lines 5 to 10 in \texttt{common-packages.tex}.
+
+There are two font types used in this document. The bodytext is typed in a classic seriffed font, Palatino Linotype, via its OpenType clone \TeX\ Gyre Pagella. The latter can be changed with the \texttt{\textbackslash setmainfont} command provided by \texttt{fontspec.sty}. Titles, page folios (pagination numbers), float labels and headers are typed in \TeX\ Gyre Adventor. This can be modified by changing the \texttt{\textbackslash setsansfont} command. Maths are also typeset in Palatino, via \verb!\setmathfont{TeX Gyre Pagella Maths}!. The use of \TeX\ Gyre fonts, which are smart font clones of classic font types might require the install of the tex-gyre and tex-gyre-maths packages on the \LaTeX distribution you are using.
+
+When starting a new chapter, one might also want to print its outline under the title, as it was done here. To do so, the writer will call \verb!\Chapter{<title>}! in lieu of the typical \verb!\chapter! command. For better font consistency, looks and optimal resolution, I encourage the reader to make use of the \texttt{pgfplots} package for including their Figures. If so, to make sure numbers are lining and not in oldstyle, one may use the \verb!\inputpgft! and \verb!\inputpgfb! commands, see \fref{fig:fig1} for an examle of their usage.
+
+\subsection{Lettrine}
+\lettrine[lines = 3,findent = 4pt, nindent=0pt]{I}{f one would like to include lettrines}, they can do so via the \texttt{lettrine} package which use initials from the \texttt{cfr-initial} package. \texttt{findent} is space between lettrine and first line. \texttt{nindent} is shift of indented lines to that of the first line.
+
+\section{Glossary}
+This template comes a with a glossary. To make use of it define entries in the \verb!glossary.tex! file. Items can then be called by \verb!\gls! and friends commands.
+The glossary is printed in the front matter, in two tables, one for abbreviations and another for symbols. The \texttt{glossary} package offers lots of customisation for theses tables. With my setup, making the glossary will require installing
+\begin{itemize}
+	\item the \verb!xindy! package and
+	\item the perl software if it is not installed on your computer.
+\end{itemize}
+If your not interested by a glossary, load the \verb!main.tex! file and get rid of
+\begin{itemize}
+	\item \verb!\makeglossaries! and
+	\item all \verb!\printglossary! commands.
+\end{itemize}
+
+\Chapter{RAS}
+\section{Some blind text to read}
+\begin{figure*}[t]
+    \inputpgft[Hello]{Figures/test2.pgf}{%
+    This is a caption. \lipsum[2]
+    \label{fig:fig1}}
+\end{figure*}
+\lipsum[1-3]
+
+\begin{itemize}
+	\item This is my first bullet point. It's such a pleasure writing. I love my life.
+	\item This is my first bullet point. It's such a pleasure writing. WARZAZAT 1994.
+\end{itemize}
+
+\begin{table*}
+	\caption{\lipsum[2]}
+	\input{Tables/res/testtab}
+\end{table*}
+\section{Second Section}
+%
+\lipsum[1-5]
+\begin{equation}
+	\dfrac{r_z(t)}{r_1} = 1 + \dfrac{t}{\tau} + o\left( \dfrac{t}{\tau} \right)
+\end{equation}
+First citation \cite{calabro-souza_understanding_2026}. \slashfrac{3}{4}. Nice \fref{fig:fig1}.

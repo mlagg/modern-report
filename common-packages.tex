@@ -1,0 +1,175 @@
+\usepackage[provide=*]{babel}
+\usepackage{datetime2}
+\DTMsetup{useregional}
+
+\usepackage[table,dvipsnames]{xcolor}
+\definecolor{ecnblue}{RGB}{16,28,72}
+\definecolor{ecnyellow}{RGB}{250,182,0}
+\colorlet{titlecolor}{ecnblue}
+\colorlet{secondarycolor}{ecnyellow}
+\definecolor{insared}{RGB}{238,28,34}
+\definecolor{insagrey}{RGB}{79,77,80}
+
+% For tikz and pgf plots
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{tikz-cd}
+\usepackage{progressbar}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{babel}
+\usepackage{pgfplots}
+\usepackage{import}
+\pgfplotsset{compat=1.14}
+\def\mathdefault#1{#1} 			% avoid pgf bug from plt figure export
+\usepackage{xsavebox} 			% save content for repeated use
+\usepackage{atbegshi} 			% insert material on every page
+\usepackage[texcoord=true]{eso-pic} % The zero point of the coordinate system is the upper left corner of the page.
+
+% Maths set up 
+\usepackage[retainorgcmds]{IEEEtrantools} % utlime equation envir. (see guide in LateX folder on Chrome)
+\usepackage[intlimits,  	% places super/subscript on top of the integral sign
+			reqno,      	% Place equation numbers on the right.
+			]{amsmath} 
+\usepackage{amsfonts}
+\usepackage{amssymb}		% nice math symbols
+%\usepackage{esvect} 		% vector sign tuning : \vv{e}{1} does not put arrow over subscript \vv{e_1} does
+\usepackage{exscale} 		% to get the sum sign right (bigger)
+\usepackage{xfrac} 			% nice inline fraction with \sfrac command
+
+% Physics and chemistry 
+\usepackage{siunitx}
+\usepackage[version=4]{mhchem}
+%\usepackage{chemfig}
+%\usepackage{chemformula}
+
+% Code
+\usepackage{piton}           % shows code nicely
+\usepackage{tcolorbox}       % box the pyhton code in a frey shaded box
+\tcbuselibrary{breakable}    % idk
+
+%\DeclareMathOperator{\logd}{$\mathrm{log}_2$} % example of the command \logd in math mode which write log_2 in upwrite nicely
+\newcommand{\vect}[1]{\vec{#1}}  % example of a new command \vect for writing bold vectors
+\newcommand{\overbar}[1]{\mkern1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+
+% Bibliography 
+\usepackage[sorting=none,      		% sorts by citation order
+			citestyle=numeric-comp, % number style and concatenation
+			autocite=superscript,
+			language=french,
+			style=nature,
+			]{biblatex}
+\usepackage{doi}
+
+% Fonts
+
+%lettrine stuff
+\usepackage{lettrine,verbatim,longtable,url}
+\usepackage{Konanur,Sanremo,Kramer,Typocaps}
+\renewcommand{\LettrineFontHook}{\Typocapsfamily\color{insagrey}}
+\renewcommand{\LettrineTextFont}{\color{insagrey}\scshape}
+
+%first set up the main font
+\usepackage{fontspec}
+\setmainfont[Numbers = {OldStyle,Proportional},Ligatures=TeX,Microtype]{TeXGyrePagella}
+\setsansfont[Microtype,Scale=MatchLowercase]{TeXGyreAdventor}
+\newfontfamily\titlefamily{TeXGyreAdventor}[Microtype,Scale=MatchLowercase,LetterSpace=3]
+
+\newfontfamily{\liningmainfont}[Numbers=Lining]{TeXGyrePagella}
+\newfontface\heroscondensedbold{texgyreheroscn-bold.otf}[RawFeature = {+smcp}]
+\newfontface\heroscondensedreg{texgyreheroscn-regular.otf}
+
+%then set up the math font
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Pagella Math}
+
+\linespread{1.05} 							% increase line spacing slightly
+\usepackage[babel=true,nopatch=footnote]{microtype} 	% 'subliminal refinements towards typographical perfection'
+\usepackage{romannum}
+
+% Tables
+\usepackage{tabularx} 		% automatically loaded with memoir, can fix the table width 
+\usepackage{multirow} 		% ?
+\usepackage{makecell} 		% retour à la ligne dans une cellule 
+\usepackage{booktabs} 		% automatically loaded with memoir Required for better horizontal rules in tables
+
+% Float captions
+\usepackage{setspace}
+\usepackage[font=small,
+			textfont = {rm},
+			format = plain,
+			figureposition = below,
+			tableposition = top,
+			hypcap=true 			% for commands in caption (cite, math?)
+			]{caption}
+\DeclareCaptionFont{tc}{\color{titlecolor}}
+\DeclareCaptionLabelSeparator{CapSep}{~\ding{71}~}
+\captionsetup{labelfont={tc,sf,sc},labelsep=CapSep}
+
+%Pages geometry
+\usepackage[%showframe
+]{geometry}
+%\usepackage{pdflscape}
+%\usepackage{rotating}
+%\usepackage[export]{adjustbox}
+
+\usepackage{csquotes}
+\usepackage{textcomp} 				% for \textmu
+\usepackage[language=french]{lipsum}
+\usepackage{datatool-base}      	% for bib entries with ISBN
+\usepackage{graphicx}
+\usepackage{flafter}				% float appears after \ref. in text
+\usepackage{pifont}					% for quick symbols, see https://lesfichesabebert.fr/TeX/latex/Listes.html
+\usepackage[shortlabels]{enumitem}	% tuning listings environments
+\usepackage{ragged2e}
+\usepackage{todonotes}				% insert to do notes via \todo{}
+\usepackage{titletoc}				% for \minitoc at chapter calls
+\usepackage{cuted}					% for onecolumn domain w/o pageskips
+\setlength{\stripsep}{0ex}
+\usepackage{hyphenat}
+\usepackage{etoolbox}
+%\usepackage{lua-visual-debug}
+
+\usepackage{hyperref}
+\hypersetup{
+	frenchlinks = true, 	% Use small caps instead of color for links.
+	plainpages = false,
+	colorlinks = true,
+	linktocpage=true,		% numbers are only hyperlink in toc
+	linkcolor = titlecolor,
+	citecolor = titlecolor,
+	urlcolor = titlecolor,
+	pdfkeywords = \keywords,
+	pdfsubject = \subject,
+	pdfauthor = {\author},
+	pdftitle = {\thetitle},
+	pdfnewwindow = true, 	% new window for link to a place out of the doc
+	pdfpagelayout = OneColumn,
+	pdfstartview = FitBH,
+	unicode = true, 		% permettre d’utiliser des caractères non-latins dans les marque-pages du lecteur de PDF
+}
+
+% Glossary
+\usepackage[xindy={codepage=utf8}, 	% adding utf8 so that it works with Lua
+	toc=true, 				% add glossaries to the toc.
+	translate=babel, 		% If babel has been loaded, the translate=babel option is switched on
+	%automake, 				% usable in unrestricted mode...
+	%abbreviations,
+	acronym, 				% add the category for acronyms
+	symbols, 				% add the category for symbols
+	%hyperfirst = false,	% idk
+	%stylemods = mcols, 		% column style + correct style
+	%style = mcolindex, 	% two column in textwidth
+	%postdot, 				% puts a dot behind each entry
+	nonumberlist, 			% no page refs in the glossaries
+]{glossaries-extra}
+
+
+%Usage:
+%1.  add entry (e.g.\newabbreviation{svm}{SVM}{support vector machine}) in glossary.tex
+%2. refers the glossary item in document by \gls{item}
+%3. compile with cmd: >> makeglossary main 
+%4. compile with cmd: >> lualatex main
+%5. compile again: >> makeglossary main ,for news items refered in document
+
+%\glsfmttext{label} using glossary entries in headings or labels

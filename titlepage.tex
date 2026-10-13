@@ -1,0 +1,81 @@
+\pagenumbering{Alpha}
+%-------Titlepage logo---- from UoM template @alexcasson
+\newlength{\logowidth}    \setlength{\logowidth}{40.006mm}
+\newlength{\logoheight}   \setlength{\logoheight}{19.454mm}
+
+\newcommand{\MYhref}[3][blue]{\href{#2}{\color{#1}{#3}}}%
+
+\newlength{\logoheightA}\newlength{\logoheightB}\newlength{\logoheightC}
+\settoheight{\logoheightA}{\includegraphics[width=\logowidth]{\myhostunilogo}}
+\settoheight{\logoheightB}{\includegraphics[width=\logowidth]{\myunilogo}}
+\settoheight{\logoheightC}{\includegraphics[width=\logowidth]{\mylablogo}}
+
+\newlength{\vmargin}	\setlength{\vmargin}{\logoheightA+\logoheightB+\logoheightC+\logopad+2cm}
+\newgeometry{left = \logowidth+\logopad +1.25cm,right = 20mm,top=\vmargin,bottom = 10mm}
+
+\begin{titlingpage*}
+	\AddToShipoutPictureBG*{ % Making sure no corners are shown on titlepage
+    \begin{tikzpicture}[remember picture, overlay,color=white,]
+		\coordinate (O) at ($(current page.north west)$);
+        \path ($(O)+(2,-\brule-2.54cm-0.4pt)$) pic {corner};					% bottom-left
+        \path ($(O)+(19,-\brule-2.54cm-0.4pt)$) pic[rotate=90] {corner};		% bottom-right
+		\path ($(O)+(19,\xrule+\headheight+0.4pt)$) pic[rotate=180] {corner};	% top-right
+		\path ($(O)+(2,\xrule+\headheight+0.4pt)$) pic[rotate=270] {corner};	% top-left
+    \end{tikzpicture}}
+    \noindent
+    \begin{tikzpicture}[overlay, remember picture]
+		\node[outer sep=0,inner sep=0,anchor=north west] (A) at ($(current page.north west)+(\logopad,-\logopad)$){%
+		\href{www.ctan.org}{\includegraphics[width=\logowidth,keepaspectratio=true]{\myhostunilogo}}%
+		};%
+		\node[outer sep=0,inner sep=0,anchor=north west,below=0.5cm of A] (B) {%
+		\href{www.ctan.org}{\includegraphics[width=\logowidth,keepaspectratio=true]{\myunilogo}}%
+		};%
+		\node[outer sep=0,inner sep=0,anchor=north west,below=0.5cm of B] (C) {%
+		\href{www.ctan.org}{\includegraphics[width=\logowidth,keepaspectratio=true]{\mylablogo}}%
+		};%
+		\coordinate[below=0.5cm of C] (P);
+		\coordinate (L) at ($(P)-(\logowidth/2,0)$);
+		\coordinate (center) at ($(L)+(0.5cm+\logowidth,0)$);
+
+		\draw (L)--($(L)+(21cm-2\logopad,0)$);
+		\draw 	%vertical line full
+			($(current page.north)+(-10.5cm + \logowidth+\logopad+0.5cm,-\logopad)$) -- ($(current page.south)+(-10.5cm + \logowidth+\logopad+0.5cm,\logopad)$);
+		\def\side{\logopad/2}
+		\fill[fill = white] (center) circle [radius = \side];
+		\node at (center) {\HUGE\ding{70}};
+	\end{tikzpicture}%
+	\linespread{0.7}%
+	\sffamily\RaggedRight
+	{\hyphenpenalty = 5000 \noindent\Huge\textcolor{insagrey}{\textsc{\documenttype}}\\}%
+	\vspace{1\logopad}%
+	\linespread{0.7}%
+	{\hyphenpenalty = 5000 \scshape\HUGE\color{ecnblue}\thetitle\\}
+	%\textbf{{\fontfamily{\family} Assessing the aggregation behaviour of model nanoplastic particles}}
+	%{\ag Assessing the aggregation behaviour of model nanoplastic particles}
+	%
+	\vspace{1\logopad}
+	{\HUGE{\textsc{\MYhref[ecnblue]{mailto:\myemail}{\author}}\\}}
+	%
+	\vspace{1\logopad}
+	{\Large\textcolor{ecnblue}{\textit{\myhomeuni}}\\}
+	{\Large\textcolor{insagrey}{\textit{\mymastersname}}\\}
+	\vspace{4pt}
+	\linespread{0.7}
+	{\Large\textcolor{ecnblue}{\textit{\myerasmusuni}}\\}
+	{\Large\textcolor{insagrey}{\textit{\myerasmusmastersname}}\\}
+	%
+	\linespread{0.7}
+	\vspace{\logopad}
+	{\Large\textcolor{insagrey}{\textsc{encadré par}}\\}
+	{\huge{\textsc{\MYhref[ecnblue]{mailto:\tutoremail}{\tutor},}}\\}
+	{\huge{\textsc{\MYhref[ecnblue]{mailto:\PIemail}{\PI}}\\}}
+	%
+	\vspace{\logopad}
+	{\Large\textcolor{insagrey}{\textsc{référant école}}\\}
+	{\huge{\textsc{\MYhref[ecnblue]{mailto:\SchoolSupervisoremail}{\SchoolSupervisor}}\\}}
+	%
+	\vspace{1\logopad}
+	%{\Large\textcolor{insagrey}{\textsc{periode}\\}}
+	{\huge\textcolor{insagrey}{\textsc{\timespend}}\\}
+\end{titlingpage*}
+\restoregeometry

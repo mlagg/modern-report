@@ -1,0 +1,108 @@
+% ETOOLBOX
+\AtBeginEnvironment{tabularx}{\par\addfontfeature{Numbers=Lining}}
+\appto\frontmatter{%
+	\pagestyle{plainfrontmatter}%
+	\aliaspagestyle{chapter}{plainfrontmatter}%
+	\chapterstyle{frontmatter}%
+	\hypersetup{linkcolor=black}%					% roman numbering, star takes off the numbering
+	\microtypesetup{protrusion=false}}
+
+\appto\mainmatter{
+	\pagestyle{clean}%
+	\aliaspagestyle{chapter}{plainmainmatter}%
+	\chapterstyle{main}}
+
+\appto\backmatter{%
+	\pagestyle{clean}	%no header, footer is only folios
+	\aliaspagestyle{chapter}{plainmainmatter} %pagestyle of the chapterpage
+	\chapterstyle{frontmatter}
+	\onecolumn}
+
+
+\renewcommand{\thefootnote}{\roman{footnote}} % Footnotes are latin numbered
+
+% Add a period to the end of an abbreviation unless there's one
+% already, then \xspace.
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+\def\eg{\emph{e.g}\onedot} \def\Eg{\emph{E.g}\onedot}
+\def\ie{\emph{i.e}\onedot} \def\Ie{\emph{I.e}\onedot}
+\def\cf{\emph{c.f}\onedot} \def\Cf{\emph{C.f}\onedot}
+\def\etc{\emph{etc}\onedot} \def\vs{\emph{vs}\onedot}
+\def\wrt{w.r.t\onedot} \def\dof{d.o.f\onedot}
+\makeatother
+
+% Hyperref for figure, table, appendix, section and equation referencing
+\renewcommand{\figurerefname}{Figure}
+\newcommand{\fref}[1]{\hyperref[#1]{\figurerefname~\ref*{#1}}}
+\newcommand{\frefA}[1]{\hyperref[#1]{\figurerefname~\ref*{#1}\textsc{a}}}
+\newcommand{\frefB}[1]{\hyperref[#1]{\figurerefname~\ref*{#1}\textsc{b}}}
+\newcommand{\frefC}[1]{\hyperref[#1]{\figurerefname~\ref*{#1}\textsc{c}}}
+\newcommand{\frefD}[1]{\hyperref[#1]{\figurerefname~\ref*{#1}\textsc{d}}}
+\newcommand{\frefAB}[1]{{\hyperref[#1]{\figurerefname~\ref*{#1}\textsc{a}}} and {\hyperref[#1]{\ref*{#1}\textsc{b}}}}
+\newcommand{\frefCD}[1]{{\hyperref[#1]{\figurerefname~\ref*{#1}\textsc{c}}} and {\hyperref[#1]{\ref*{#1}\textsc{d}}}}
+
+\renewcommand{\tablename}{Table}
+\newcommand{\tref}[1]{\hyperref[#1]{\tablename~\ref*{#1}}}
+
+\newcommand{\Aname}{Appendix}
+\newcommand{\Aref}[1]{\hyperref[#1]{\Aname~\ref*{#1}}}
+
+\newcommand{\Ename}{Equation}
+\newcommand{\Eref}[1]{\hyperref[#1]{\Ename~\ref*{#1}}}
+
+\newcommand{\inputpgft}[3][\@empty]{%
+	\begingroup
+		\renewcommand{\rmfamily}{\liningmainfont}%
+		\input{#2}%
+		\ifx \@empty#1 \caption{#3}\else \caption[#1]{#3}\fi%
+		\vspace{\onelineskip}%
+		\begin{tikzpicture}[remember picture, overlay,color=secondarycolor,]
+			\coordinate (O) at ($(17,0)$);
+			\draw (\headheight,0)--(17cm-\headheight,0);
+		\end{tikzpicture}
+		%\textcolor{secondarycolor}{\noindent\hrule height 0.8pt}%
+	\endgroup
+}%
+\newcommand{\inputpgfb}[3][\@empty]{%
+	\begingroup
+		{\color{secondarycolor}\hrule height 0.8pt}%
+		\vspace{\onelineskip}%
+		\renewcommand{\rmfamily}{\liningmainfont}%
+		\input{#2}%
+		\ifx \@empty#1 \caption{#3}\else \caption[#1]{#3}\fi%
+	\endgroup
+}%
+\newcommand{\inputpd}[3][\@empty]{%
+	\begingroup
+		\ifx \@empty#1 \caption{#3}\else \caption[#1]{#3}\fi%
+		\input{#2}% % par finish the paragrpah so that dotfill starts on new line
+  \endgroup
+}%
+\newcommand{\Chapter}[1]{%
+	\chapter{#1}%
+	\begin{strip}
+		\hypersetup{linkcolor=black}
+		\textcolor{insagrey!10}{\noindent\hrule}%
+		\vskip 0.5\onelineskip
+		\startcontents[sections]
+		\printcontents[sections]{}{1}[2]{}	% 1 is startlevel (section=1, chapter=0 )
+		\textcolor{insagrey!10}{\noindent\hrule}
+		\par\vspace*{4\halfboxsize}\null
+		\hypersetup{linkcolor=pink}
+	\end{strip}
+	\chaptermark{\currentchaptertitle}%
+}
+\newcommand*\TransitionPic{%
+	\clearpage
+	\mbox{~}
+	\begin{tikzpicture}[overlay, remember picture]
+		\node[outer sep=0,inner sep=0,anchor=north west] at ($(current page.north west)$) (pic)
+			{\includegraphics[width=\pagewidth,keepaspectratio=true]{Figures/logos/MPs-on-beach.jpg}};%
+		\node[anchor = south west, below = 4pt of pic]
+			{\sffamily \textsc{Geographical}, The toxic impact of microplastics in the human body, 3/10/2019};
+	\end{tikzpicture}
+	\clearpage
+	\mbox{~}}
+

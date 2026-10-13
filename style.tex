@@ -1,0 +1,208 @@
+% PAGE STEUP
+\newcommand{\deadmarginlength}{3cm}
+\newcommand{\bodytextlength}{17cm}
+\newcommand{\pagewidthh}{21cm}
+
+% from https://github.com/astoeckel/smart-thesis?tab=readme-ov-file
+\settypeblocksize{23.45cm}{\bodytextlength}{*}
+%\setlength{\textheight}{23.45cm}
+%\setlength{\textwidth}{11.85cm}
+\setlrmargins{2cm}{*}{*}
+\setulmargins{*}{*}{*}\newcommand{\figlength}{\pagewidthh-2\deadmarginlength}
+
+\setcolsepandrule{0.6cm}{0pt}						%space bewteen the 2 columns and thickness of the vertical rule in between
+\checkandfixthelayout
+
+% CONSTANTS
+\newlength{\logopad}    	\setlength{\logopad}{14.279mm}
+\newlength{\vertmargin}		\setlength{\vertmargin}{3.125cm}
+\newlength{\xrule}			\setlength{\xrule}{-\vertmargin+\headsep}
+
+%List
+\setlist{noitemsep}
+\setlist[1]{labelindent=\parindent}
+\setlist[itemize]{leftmargin=0pt}
+\setlist[itemize,1]{label=--}
+
+% Abstract
+\abstractcol 	% declaration specifies that an abstract in a twocolumn class option document should be typeset like a normal, unnumbered chapter. The
+\abstractintoc 	% specifies that the abstract title should be added to the ToC. The declaration \abstractnum specifies that the abstract should be typeset like a numbered chapter
+
+\renewcommand{\abstractnamefont}{\centering\large\scshape\sffamily\MakeLowercase} % same as section
+
+% Bringhurst modified chapter style for front matter
+\makechapterstyle{frontmatter}{%
+	\renewcommand{\chapterheadstart}{}
+	\renewcommand{\printchaptername}{}
+	\renewcommand{\chapternamenum}{}
+	\renewcommand{\printchapternum}{}
+	\renewcommand{\afterchapternum}{}
+	\renewcommand{\printchaptertitle}[1]{%
+		\color{titlecolor}\sffamily\centering\large\scshape{##1}}
+	\renewcommand{\afterchaptertitle}{%
+		\vskip\onelineskip \vskip\onelineskip}
+}
+
+\newcommand{\ChapNumFont}{\color{titlecolor}\fontsize{30pt}{0pt}\titlefamily}
+\newlength{\innersep}		\setlength{\innersep}{0.333em}
+\newlength{\ChapNumWidth}
+\newlength{\ChapNumheight}
+\newlength{\cnh}
+\newcommand{\halfboxsize}{0pt} % cmd to make it global
+
+\makechapterstyle{main}{%
+	\renewcommand*{\printchaptername}{}%
+	\renewcommand*{\chapternamenum}{}%
+	\renewcommand*{\chapnumfont}{\ChapNumFont}
+	\renewcommand{\chapterheadstart}{}%
+	\renewcommand*{\printchapternum}[1]{}
+	\renewcommand*{\afterchapternum}{}%
+	\renewcommand*{\printchapternonum}{}%
+	\renewcommand*{\chaptitlefont}{\ChapNumFont\scshape}%
+	\renewcommand*{\printchaptertitle}[1]{%
+		\gdef\currentchaptertitle{##1}%
+		\settoheight{\cnh}{\chaptitlefont ##1}%
+		\settowidth{\ChapNumWidth}{\ChapNumFont \thechapter}%
+		\settoheight{\ChapNumheight}{\ChapNumFont \thechapter}%
+		\renewcommand{\halfboxsize}{\dimexpr\cnh/2+0.2cm+\innersep}%
+		\begin{tikzpicture}[remember picture, overlay]
+			\coordinate (origin) at ($(current page.north west)+(2cm,-3.125cm-\halfboxsize)$);%
+			\def\boxlength{17cm-0.6cm-\ChapNumWidth-4\innersep}
+			\filldraw[draw=titlecolor,fill = white] ($(origin)+(0,-\cnh/2-\innersep-0.2cm)$) rectangle ($(origin)+(17,\cnh/2+\innersep+0.2cm)$);%
+			\node[fill = insagrey!10,text=titlecolor,anchor=west,text height = \cnh] at ($(origin)+(0.2cm,0)$) (A) {\chapnumfont\thechapter};%
+			\node[fill = insagrey!10, right = 0.2cm of A,text width = \boxlength,text=titlecolor] (B) {\chaptitlefont ##1};%
+			\node[fill=secondarycolor,right = 0pt of A ,text width=2pt-2\innersep,text height=\cnh-2\innersep,anchor=east] (C) {};
+		\end{tikzpicture}%
+	}%
+	\renewcommand{\afterchaptertitle}{\vspace*{3\halfboxsize}}%
+  }
+
+% TOC STYLE
+\newfontfamily\secfamily{TeXGyreAdventor}[Scale=MatchLowercase,]
+\renewcommand{\cftchapterfont}{\secfamily\scshape}
+\renewcommand{\cftchapterpagefont}{\secfamily}
+
+\renewcommand{\cftsectionfont}{\color{titlecolor}\titlefamily\scshape}
+\renewcommand{\cftsectionpagefont}{\color{titlecolor}\sffamily}
+
+\renewcommand{\cftsubsectionfont}{\itshape\titlefamily}
+\renewcommand{\cftsubsectionpagefont}{\sffamily}
+
+\renewcommand{\cftfigurefont}{\sffamily}
+\renewcommand{\cftfigurepagefont}{\sffamily}
+
+\renewcommand{\cfttablefont}{\sffamily}
+\renewcommand{\cfttablepagefont}{\sffamily}
+
+% HEADER STYLES - Modified Bringhurst
+%% Sections and subsections
+\setsecnumformat{\liningmainfont\csname the#1\endcsname\quad}
+
+%% The section style
+\newcommand{\uppercasehead}[1]{%
+	\noindent\tikz{\node[fill = insagrey!10,text width=\columnwidth-0.25cm] at (0,0) {\color{titlecolor}\secfamily\scshape{\textls[50]{#1}}}}}
+\setsecindent{0pt}
+\setsecheadstyle{\uppercasehead}
+\setsecnumformat{\csname the#1\endcsname\quad}
+\setaftersecskip{0.5\onelineskip}
+\setbeforesecskip{0.5\onelineskip}
+
+%% The subsection style
+\newcommand{\itshapehead}[1]{%
+	\noindent\tikz{\node[line width = 0.4pt,draw = insagrey!10,text width=\columnwidth-0.25cm] at (0,0){\secfamily\itshape#1}}}%
+\setsubsecheadstyle{\itshapehead}
+\setsecnumdepth{subsection}
+\setaftersubsecskip{0.5\onelineskip}
+\setbeforesubsecskip{0.5\onelineskip}
+
+%% The subsubsection style
+\setsubsubsecheadstyle{\liningmainfont\itshapehead}
+\setsecnumdepth{subsubsection} %subsubsection numbering
+
+
+% HEADER AND FOOTERS
+%% mainmatter pagestyle
+\makepagestyle{clean}
+\makepsmarks{clean}{%
+	\nouppercaseheads
+	\createmark{chapter}{left}{nonumber}{}{}%			% title only in \leftmark
+	\createmark{section}{right}{shownumber}{}{\space}% 	% optional, as you like
+	}
+\makeoddhead{clean}{}{\textcolor{insagrey}{\sffamily\scshape\MakeLowercase\leftmark}}{}
+\makeoddfoot{clean}{}{%
+	\sffamily
+	\textcolor{titlecolor}{\titlefamily\thepage}\
+	\textcolor{titlecolor}{\textsl{l}}\
+	\textcolor{insagrey}{\thelastpage}}{}
+\makeheadfootruleprefix{clean}{\color{insagrey}}{\color{insagrey}}
+
+\copypagestyle{plainmainmatter}{plain}
+\makeoddfoot{plainmainmatter}{}{%
+	\sffamily
+	\textcolor{titlecolor}{\titlefamily\thepage}\
+	\textcolor{titlecolor}{\textsl{l}}\
+	\textcolor{insagrey}{\thelastpage}}{}
+
+%% frontmatter pagestyle
+\makepagestyle{plainfrontmatter}
+\makeoddfoot{plainfrontmatter}{}{\textcolor{titlecolor}{\titlefamily\thepage}}{}
+
+\ifdraftdoc
+	\newcommand{\draftdate}{\sffamily\textcolor{blue!30}{ÉBAUCHE}~\small\textcolor{purple}{\fbox{{\textit{\DTMnow}}}}}
+	\xsavebox{PageBGPicture}{%
+		\begin{tikzpicture}
+			\node [rotate around={90:(0,0)}] at (0,0) {\draftdate};
+		\end{tikzpicture}}
+	%position background picture absolutely (w.r.t. upper left page corner) on every page
+	\AtBeginShipout{
+		\AtBeginShipoutUpperLeft{%
+			\put(0.6cm,-26.575cm){\xusebox{PageBGPicture}}}}
+\fi
+
+% Glossary style
+\renewcommand{\glossarypreamble}{\glsfindwidesttoplevelname[\currentglossary]}
+\setabbreviationstyle[acronym]{long-short-sc}
+%\setglossarystyle{long}
+%\setglossarystyle{long4col}
+%\setglossarystyle{mcolalttree}			%alttree -> indent between abbr and text, mcol -> two columns
+\loadglsentries{glossary} 				%same as \input{glossary}
+%\glsdisablehyper 						%no hyperlinks for any gls entry
+\renewcommand*{\glsnamefont}[1]{\textsc{\mdseries #1}}   % need to solve the issue with nomeclature entries being \sl\sc like the abbreviations
+\renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}} % black hyperlinks!
+%\setlength\glsdescwidth{1.5\textwidth}  %does nothing !!
+
+% PAGE CORNERS
+\newlength{\brule}	\setlength{\brule}{\topmargin+\headheight+\headsep+\textheight+\footskip}
+\tikzset{corner/.pic={code={\draw (0,\headheight)--(0,0)--(\headheight,0);}}}
+
+\AddToShipoutPictureBG{
+    \begin{tikzpicture}[remember picture, overlay,color=secondarycolor,]
+		\coordinate (O) at ($(current page.north west)$);
+        \path ($(O)+(2,-\brule-2.54cm-0.4pt)$) pic {corner};					% bottom-left
+        \path ($(O)+(19,-\brule-2.54cm-0.4pt)$) pic[rotate=90] {corner};		% bottom-right
+		\path ($(O)+(19,\xrule+\headheight+0.4pt)$) pic[rotate=180] {corner};	% top-right
+		\path ($(O)+(2,\xrule+\headheight+0.4pt)$) pic[rotate=270] {corner};	% top-left
+    \end{tikzpicture}
+}
+% APPENDIX
+\newleadpage[empty]{Annexes}{%
+	\begin{tikzpicture}
+		\node (title) {Annexes};
+		\colorlet{casecolor}{titlecolor}%
+		\draw[draw=casecolor,line width=0.4pt] ($(title.north west)+(0.2cm,0)$)--(title.north west) -- ++(0,-0.2cm);
+		\draw[draw=casecolor,line width=0.4pt] ($(title.south west)+(0,0.2cm)$)--(title.south west) -- ++(0.2cm,0);
+		\draw[draw=casecolor,line width=0.4pt] ($(title.north east)+(-0.2cm,0)$)--(title.north east) -- ++(0,-0.2cm);
+		\draw[draw=casecolor,line width=0.4pt] ($(title.south east)+(-0.2cm,0)$)--(title.south east) -- ++(0,0.2cm);
+	\end{tikzpicture}}
+
+\newleadpage[empty]{Test}{%
+	\begin{tikzpicture}[overlay, remember picture]
+		\node[outer sep=0,inner sep=0,anchor=north west] at ($(current page.north west)$) (pic)
+			{\includegraphics[width=\pagewidth,keepaspectratio=true]{Figures/logos/MPs-on-beach.jpg}};%
+		\node[anchor = south west, below = 4pt of pic]
+			{\sffamily \textsc{Geographical}, The toxic impact of microplastics in the human body, 3/10/2019};
+	\end{tikzpicture}
+	Z}
+
+\renewcommand{\parttitlefont}{%
+	\fontsize{30pt}{30pt}\titlefamily\scshape\color{titlecolor}}

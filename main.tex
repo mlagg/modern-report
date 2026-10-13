@@ -1,0 +1,56 @@
+\documentclass[a4paper,french,oneside,twocolumn,10pt,]{memoir}
+
+\input{metadata}			% pdf and titlepage infos
+\input{common-packages}
+
+\addbibresource{myrefs.bib}
+\makeglossaries 			% creates the xindy file main.xdy
+
+\input{style}
+\input{common-macros}
+
+\begin{document}
+\input{titlepage}
+%----------------------------------------------------------------
+%   Front Matter
+%----------------------------------------------------------------
+\frontmatter				% roman pagination
+\tableofcontents* 			% starred makes content do not appear in the ToC
+\listoffigures
+\listoftables
+\microtypesetup{protrusion=true}
+\hypersetup{linkcolor=titlecolor}
+
+\input{abstract}
+
+\printglossary[type=acronym,title = {Table des abréviations}]
+\printglossary[type=symbols,title={Nomenclature}]
+
+
+%----------------------------------------------------------------
+%   Main Matter
+%----------------------------------------------------------------
+%\TransitionPic
+\mainmatter 					% arabic pagination
+
+\input{dummytext}
+
+% APPENDIX
+\stopcontents[sections] 		% necessary so that Appendixes do not appear in the last partial ToC.
+\Annexes*						% not necessary:  an empty-lead page with "Annexes" written, *for no ToC entry
+\appendix						% make chapters alphabetically numbered
+\chapter{Numerical methods}
+\lipsum[1-3]
+
+%----------------------------------------------------------------
+%   Back Matter
+%----------------------------------------------------------------
+%\TransitionPic
+\backmatter
+\printbibliography
+
+\end{document}
+
+%\renewcommand{\abstractname}{Acknoledgments}
+%\renewcommand{\abstractintoc}{\abstractname}
+%\begin{abstract} \input{acknoledgments}\end{abstract}
